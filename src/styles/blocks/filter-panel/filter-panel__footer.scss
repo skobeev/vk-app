@@ -1,0 +1,11 @@
+.filter-panel__footer {
+  height: 40px;
+  border: none;
+  background: none;
+  font-size: 30px;
+  cursor: pointer;
+
+  &:hover {
+    background: azure;
+  }
+}

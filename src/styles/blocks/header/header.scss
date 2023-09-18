@@ -1,0 +1,21 @@
+.header {
+  padding: 10px 20px;
+}
+
+.button-query {
+  border: none;
+  background: var(--base-color);
+  padding: 6px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+/* вынести отсюда */
+.input {
+  border: 1px solid var(--base-color);
+  padding: 6px 10px;
+}
+
+.input_size_l {
+  width: 250px;
+}

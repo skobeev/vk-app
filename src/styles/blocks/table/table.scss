@@ -1,0 +1,9 @@
+@import './table__body.scss';
+@import './table__head.scss';
+@import './table__cell.scss';
+
+.table {
+  border-collapse: collapse;
+  border: 1px solid rgb(0, 0, 0);
+  width: 100%;
+}

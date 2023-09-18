@@ -1,0 +1,9 @@
+@import './page__table.scss';
+@import './page__content.scss';
+
+.page {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+  overflow: hidden;
+}

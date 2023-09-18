@@ -1,0 +1,43 @@
+.loader {
+  position: fixed;
+  display: flex;
+  z-index: 1001;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.363);
+
+  &_hidden {
+    display: none;
+  }
+
+  &__ring {
+    width: 80px;
+    height: 80px;
+    border-width: 6px;
+    border-style: solid;
+    border-right-color: black;
+    border-left-color: black;
+    border-top-color: transparent;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    animation: 1s linear infinite;
+    -webkit-animation: spin 1s linear infinite;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
