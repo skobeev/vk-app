@@ -1,22 +1,26 @@
 <html lang='en'>
-  <head>
-    <meta charset='UTF-8' />
-    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
-    <link href="style.css" rel="stylesheet" type="text/css">
-    <title>{{{title}}}</title>
-  </head>
-  <body>
-    <div class="page">
-      {{>header}}
-      <div class="page__content">
-        {{>filterPanel}}
-        <div class="page__table">
-           {{>table}}
-        </div>
+
+<head>
+  <meta charset='UTF-8' />
+  <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+  <link href="style.css" rel="stylesheet" type="text/css">
+  <title>{{{title}}}</title>
+  <script src="./src/scripts/popover.js"></script>
+</head>
+
+<body>
+  <div class="page">
+    {{> header}}
+    <div class="page__content">
+      {{> filterPanel}}
+      <div class="page__table">
+        {{> table}}
       </div>
     </div>
-    {{>loader}}
-   <script src="script.bundle.js"></script>
-   <script src='./src/scripts/checkbox.js'></script>
-  </body>
+  </div>
+  {{> loader}}
+  <script src='./scripts/checkbox.js'></script>
+  <script src="script.bundle.js"></script>
+</body>
+
 </html>

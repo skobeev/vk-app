@@ -1,0 +1,22 @@
+.icon {
+  background-size: cover;
+  display: inline-block;
+}
+
+.icon_size_s {
+  width: 1em;
+  height: 1em;
+}
+
+.icon_size_m {
+  width: 2em;
+  height: 2em;
+}
+
+.icon_type_filter {
+  background-image: url('../../../assets/filter.png');
+}
+
+.icon_type_arrow-right {
+  background-image: url('../../../assets/arrow-right.png');
+}

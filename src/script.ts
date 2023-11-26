@@ -36,12 +36,11 @@ async function getFriends(): Promise<void> {
     if (response.ok) {
       const result = await response.json();
       if (result.error) {
-        console.log('error', result.error.error_msg);
         return;
       }
 
       const friendsResponse = result.response as FriendListResponse;
-      console.log(result);
+
       let tableBodyHTML = '';
       friendsResponse.items.forEach((friend) => {
         const row = getFriendListTableRow(friend);
@@ -63,14 +62,18 @@ async function getFriends(): Promise<void> {
 }
 
 document.querySelector('#get')?.addEventListener('click', () => {
-  console.log('click');
   getFriends();
 });
 
+// вынести и упростить
 document
   .querySelector('.filter-panel__footer')
   ?.addEventListener('click', (event) => {
     document
       .querySelector('.filter-panel')
       ?.classList.toggle('filter-panel_hidden');
+
+    document
+      .querySelector('.filter-panel__footer')
+      ?.classList.toggle('filter-panel__footer_collapsed');
   });

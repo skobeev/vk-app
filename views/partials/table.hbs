@@ -8,7 +8,32 @@
         Фамилия
       </th>
       <th class='table__cell'>
-        Пол
+        <div class="table__cell-content">
+          Пол
+          <div>
+            <button class="icon" data-popover-id="sex-popover-table">
+              <i class="icon icon_size_s icon_type_filter">
+              </i>
+            </button>
+            <div class="dropdown-menu" data-popover-container-id="sex-popover-table">
+              <ul>
+                <li>
+                  <label>
+                    <input type="checkbox" data-filter-sex="male" checked />
+                    Мужской
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    <input type="checkbox" data-filter-sex="female" checked />
+                    Женский
+                  </label>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
       </th>
       <th class='table__cell'>
         Страница открыта
@@ -18,4 +43,12 @@
   <tbody id='tableBody' class='table__body'>
 
   </tbody>
+  <script>
+    document.querySelectorAll('thead [data-popover-id]').forEach((triggerElement) => {
+      new Popover({
+        triggerElement
+      })
+    })
+
+  </script>
 </table>
