@@ -1,9 +1,11 @@
+import { API_VERSION } from './constants/api-version';
+import { PROXY_URL } from './constants/proxy-URL';
 import { createStringWithQueryParams } from './helpers/createStringWithURLParams';
 import { getFriendListTableRow } from './helpers/getFriendListTableRow';
 import { TOKEN } from './token';
 import { FriendListResponse } from './types/FriendListResponse';
 
-const URL = 'http://localhost:8010/proxy/method/';
+const METHOD_URL = `${PROXY_URL}/method/`;
 const METHOD = 'friends.get';
 
 async function getFriends(): Promise<void> {
@@ -20,14 +22,14 @@ async function getFriends(): Promise<void> {
     },
     {
       name: 'v',
-      value: '5.131',
+      value: API_VERSION,
     },
     {
       name: 'access_token',
       value: TOKEN,
     },
   ]);
-  const url_service = URL + METHOD + '?' + queryParams;
+  const url_service = METHOD_URL + METHOD + '?' + queryParams;
   const loader = document.querySelector('.loader');
   try {
     loader?.classList.remove('loader_hidden');

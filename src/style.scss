@@ -8,12 +8,3 @@
 @import './styles/common/variables.css';
 @import './styles/blocks/header/header.scss';
 @import './styles/blocks/icon/icon.css';
-
-li {
-  list-style-type: none;
-}
-
-.table__cell-content {
-  display: flex;
-  justify-content: space-between;
-}

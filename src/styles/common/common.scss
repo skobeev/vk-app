@@ -1,3 +1,4 @@
+/*Сделать либо reset, либо по БЭМ раскидать*/
 * {
   margin: 0;
   padding: 0;
@@ -12,4 +13,8 @@ body {
 
 input {
   outline: none;
+}
+
+li {
+  list-style-type: none;
 }

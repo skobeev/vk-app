@@ -15,8 +15,6 @@ app.use(express.static(__dirname + '/dist/src/scripts'));
 app.set('view engine', 'hbs');
 
 app.get('/', (req: Request<any, any, any, any>, res) => {
-  // res.sendFile(path.join(__dirname, '/test.html'));
-  // res.render('');
   res.render('layout');
 });
 
