@@ -64,7 +64,23 @@ async function getFriends(): Promise<void> {
 }
 
 document.querySelector('#get')?.addEventListener('click', () => {
-  getFriends();
+  // getFriends();
+
+  fetch('/getTableData', {
+    method: 'POST',
+  })
+    .then((res) => {
+      console.log('response', res);
+      return res.json();
+    })
+    .then((res) => {
+      console.log('response', res);
+      const tableContainer = document.querySelector('.page__table');
+      if (tableContainer) {
+        tableContainer.innerHTML = '';
+        tableContainer.insertAdjacentHTML('afterbegin', res.result);
+      }
+    });
 });
 
 // вынести и упростить

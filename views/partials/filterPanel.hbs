@@ -3,15 +3,19 @@
     <span class="filter-panel__title">
       Панель фильтров
     </span>
-    <div class="filter-panel__group">
-      <span class="filter-panel__group-name">
-        Столбцы
-      </span>
-      <div class="filter-panel__group-content">
-        {{>checkbox label="Пол" checked="true"}}
-        {{>checkbox label="Страница открыта" checked="true"}}
+    <form class="filter-panel__form" id="filterPanelForm">
+      <div class="filter-panel__group">
+        <span class="filter-panel__group-name">
+          Столбцы
+        </span>
+        <div class="filter-panel__group-content">
+          {{>checkbox label="Пол" checked="true" name="sex"}}
+          {{>checkbox label="Страница открыта" checked="true" name="isOpenPage"}}
+        </div>
       </div>
-    </div>
+      <button id='applyFilter' class="button-query" type="submit">Применить</button>
+    </form>
+
   </div>
   <button class="filter-panel__footer">
     <span class="filter-panel__footer-icon">

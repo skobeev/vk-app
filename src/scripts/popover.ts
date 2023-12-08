@@ -69,3 +69,5 @@ class Popover {
     return this.popoverContainer?.hasAttribute(this.ACTIVE_POPOVER_ATTRIBUTE);
   }
 }
+
+const a = new Popover({ triggerElement: document.createElement('div') });

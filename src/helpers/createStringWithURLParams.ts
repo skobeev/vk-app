@@ -1,4 +1,4 @@
-interface QueryParamModel {
+export interface QueryParamModel {
   name: string;
   value: string;
 }

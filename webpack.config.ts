@@ -5,6 +5,7 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 const SCRIPT_NAMES = {
   Checkbox: 'checkbox',
   Popover: 'popover',
+  FilterPanel: 'filter-panel',
 };
 
 const config: webpack.Configuration = {
@@ -15,6 +16,7 @@ const config: webpack.Configuration = {
     script: './src/script.ts', // сделал, чтобы не было ошибки, потом что у файлов js, полученных через tsc, проблема с модулями script.js:12 Uncaught ReferenceError: exports is not defined
     [SCRIPT_NAMES.Checkbox]: './src/scripts/checkbox.ts',
     [SCRIPT_NAMES.Popover]: './src/scripts/popover.ts',
+    [SCRIPT_NAMES.FilterPanel]: './src/scripts/filter-panel.ts',
   },
   output: {
     path: path.resolve(__dirname, 'dist'),

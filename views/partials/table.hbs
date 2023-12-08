@@ -7,6 +7,8 @@
       <th class='table__cell'>
         Фамилия
       </th>
+      {{#with columns}}
+      {{#if_eq "on" "on"}}
       <th class='table__cell'>
         <div class="table__cell-content">
           Пол
@@ -35,9 +37,16 @@
 
         </div>
       </th>
+      {{/if_eq}}
+
+      {{#if_eq columns.isOpenPage "on" }}
       <th class='table__cell'>
         Страница открыта
       </th>
+      {{/if_eq}}
+      {{/with}}
+
+
     </tr>
   </thead>
   <tbody id='tableBody' class='table__body'>
