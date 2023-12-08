@@ -1,0 +1,20 @@
+.filter-panel__footer {
+  height: 40px;
+  border: none;
+  background: none;
+  font-size: 30px;
+  cursor: pointer;
+
+  &:hover {
+    background: azure;
+  }
+}
+
+.filter-panel__footer-icon {
+  font-size: 16px;
+  display: inline-block;
+}
+
+.filter-panel__footer_collapsed .filter-panel__footer-icon {
+  transform: rotate(180deg);
+}

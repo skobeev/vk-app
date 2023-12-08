@@ -1,0 +1,20 @@
+/*Сделать либо reset, либо по БЭМ раскидать*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+input {
+  outline: none;
+}
+
+li {
+  list-style-type: none;
+}

@@ -1,0 +1,23 @@
+@import './filter-panel__title.scss';
+@import './filter-panel__group-content.scss';
+@import './filter-panel__group-name.scss';
+@import './filter-panel__title.scss';
+@import './filter-panel__footer.scss';
+@import './filter-panel__content.scss';
+
+.filter-panel {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  border-right: 2px solid var(--base-color);
+  transition: width 250ms;
+  width: 200px;
+
+  &_hidden {
+    width: 60px;
+
+    .filter-panel__content {
+      visibility: hidden;
+    }
+  }
+}
