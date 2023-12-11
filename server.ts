@@ -7,6 +7,8 @@ import { TOKEN } from './src/token';
 import { PROXY_URL } from './src/constants/proxy-URL';
 import { FriendListResponse } from './src/types/FriendListResponse';
 import { GetTableDataRequestParams } from './src/api/get-table-data/dto/get-table-data-request-params';
+import { FriendsListItem } from './src/api/get-table-data/dto/friends-list-item';
+import { MAP_SEX_ID_TO_STRING } from './src/constants/mapSexIdToString';
 
 const app = express();
 const PORT = 3001;
@@ -32,6 +34,12 @@ const hbs = create({
         return opts.inverse(this);
       }
     },
+    is_empty_array: function (
+      array: unknown[] | undefined,
+      opts: { fn: (arg0: any) => any; inverse: (arg0: any) => any }
+    ) {
+      return array?.length ? opts.inverse(this) : opts.fn(this);
+    },
   },
 });
 
@@ -46,14 +54,14 @@ app.get('/', (req: Request<any, any, any, any>, res) => {
 app.get(
   '/getTableData',
   async function (req: Request<any, any, any, GetTableDataRequestParams>, res) {
-    const queryParams = createStringWithQueryParams([
+    const queryParamsModel = [
       {
         name: 'user_id',
         value: '101606976',
       },
       {
         name: 'fields',
-        value: 'sex',
+        value: 'sex,domain',
       },
       {
         name: 'v',
@@ -63,11 +71,17 @@ app.get(
         name: 'access_token',
         value: TOKEN,
       },
-    ]);
+    ];
+
+    const queryParams = createStringWithQueryParams(queryParamsModel);
 
     const METHOD = '/friends.get';
     const url_service = PROXY_URL + METHOD + '?' + queryParams;
-    console.log('url_service', url_service);
+
+    let friendsResponse: FriendListResponse = {
+      count: 0,
+      items: [],
+    };
 
     try {
       const response = await fetch(url_service);
@@ -78,25 +92,40 @@ app.get(
           return;
         }
 
-        const friendsResponse = result.response as FriendListResponse;
-        // console.log('friendRespons', friendsResponse);
+        friendsResponse = result.response as FriendListResponse;
+        console.log('friendRespons', friendsResponse.items);
       }
     } catch (error) {
       console.error(error);
     } finally {
-      // loader?.classList.add('loader_hidden');
     }
 
     // не удается извлечь json...
     // const tableBody = await hbs.getPartials({
     //   precompiled: true,
     // });
-    console.log('req', req.query);
+
+    interface TableRow extends Partial<FriendsListItem> {
+      sex_text: string;
+      is_close_text: string;
+    }
+
+    const tableRows = friendsResponse.items.map<TableRow>((friend) => ({
+      first_name: friend.first_name,
+      last_name: friend.last_name,
+      sex: friend.sex,
+      is_closed: friend.is_closed,
+      sex_text: MAP_SEX_ID_TO_STRING[friend.sex],
+      is_close_text: friend.is_closed ? 'да' : 'нет',
+      friend_vk_page_link: `https://vk.com/${friend.domain}`,
+    }));
+
     const tableBody = await hbs.render(
       __dirname + '/views/partials/table.hbs',
       {
         title: 'ok',
-        columns: req.query,
+        head: req.query,
+        rows: tableRows,
       }
     );
 

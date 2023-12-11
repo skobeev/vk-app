@@ -9,12 +9,16 @@
 }
 
 .icon_size_m {
-  width: 2em;
-  height: 2em;
+  width: 1.3em;
+  height: 1.3em;
 }
 
 .icon_type_filter {
   background-image: url('../../../assets/filter.png');
+}
+
+.icon_type_vk-logo {
+  background-image: url('../../../assets/vk-logo.svg');
 }
 
 .icon_type_arrow-right {

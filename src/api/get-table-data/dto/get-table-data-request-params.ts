@@ -1,4 +1,4 @@
 export interface GetTableDataRequestParams {
-  sex?: string;
-  isOpenPage?: string;
+  hasSexColumn?: string;
+  hasOpenPageColumn?: string;
 }
