@@ -54,10 +54,19 @@ app.get('/', (req: Request<any, any, any, any>, res) => {
 app.get(
   '/getTableData',
   async function (req: Request<any, any, any, GetTableDataRequestParams>, res) {
+    if (!req.query.userId) {
+      res.json({
+        isSuccess: false,
+        result: null,
+        error: 'id пользователя не определен',
+      });
+      return;
+    }
+
     const queryParamsModel = [
       {
         name: 'user_id',
-        value: '101606976',
+        value: req.query.userId,
       },
       {
         name: 'fields',
@@ -85,7 +94,7 @@ app.get(
 
     try {
       const response = await fetch(url_service);
-
+      console.log(response);
       if (response.ok) {
         const result = await response.json();
         if (result.error) {
@@ -93,7 +102,6 @@ app.get(
         }
 
         friendsResponse = result.response as FriendListResponse;
-        console.log('friendRespons', friendsResponse.items);
       }
     } catch (error) {
       console.error(error);

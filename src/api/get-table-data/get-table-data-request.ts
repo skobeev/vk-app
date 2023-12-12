@@ -5,7 +5,7 @@ import {
   createStringWithQueryParams,
 } from '../../helpers/createStringWithURLParams';
 
-export const getTableData = async (
+export const getTableDataRequest = async (
   params: GetTableDataRequestParams
 ): Promise<GetTableDataResponse> => {
   const queryParams: QueryParamModel[] = Object.keys(
