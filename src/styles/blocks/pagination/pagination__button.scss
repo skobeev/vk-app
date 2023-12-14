@@ -1,0 +1,10 @@
+.pagination__button {
+  border: 2px solid #29dbff;
+  border-radius: 5px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.pagination__button_active {
+  background-color: #8eecff;
+}

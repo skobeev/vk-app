@@ -1,104 +1,98 @@
-<table class='table'>
-  <thead class='table__head'>
-    <tr>
-      <th class='table__cell'>
-        Имя
-      </th>
-      <th class='table__cell'>
-        Фамилия
-      </th>
-      {{#with head}}
+<div class="table-container">
+  <table class='table'>
+    <thead class='table__head'>
+      <tr>
+        <th class='table__cell'>
+          Имя
+        </th>
+        <th class='table__cell'>
+          Фамилия
+        </th>
+        {{#with head}}
         {{#if hasSexColumn}}
-          <th class='table__cell'>
-            <div class='table__cell-content'>
-              Пол
-              <div>
-                <button class='icon' data-popover-id='sex-popover-table'>
-                  <i class='icon icon_size_s icon_type_filter'>
-                  </i>
-                </button>
-                <div
-                  class='dropdown-menu'
-                  data-popover-container-id='sex-popover-table'
-                >
-                  <ul>
-                    <li>
-                      <label>
-                        <input type='checkbox' data-filter-sex='male' checked />
-                        Мужской
-                      </label>
-                    </li>
-                    <li>
-                      <label>
-                        <input
-                          type='checkbox'
-                          data-filter-sex='female'
-                          checked
-                        />
-                        Женский
-                      </label>
-                    </li>
-                  </ul>
-                </div>
+        <th class='table__cell'>
+          <div class='table__cell-content'>
+            Пол
+            <div>
+              <button class='icon' data-popover-id='sex-popover-table'>
+                <i class='icon icon_size_s icon_type_filter'>
+                </i>
+              </button>
+              <div class='dropdown-menu' data-popover-container-id='sex-popover-table'>
+                <ul>
+                  <li>
+                    <label>
+                      <input type='checkbox' data-filter-sex='male' checked />
+                      Мужской
+                    </label>
+                  </li>
+                  <li>
+                    <label>
+                      <input type='checkbox' data-filter-sex='female' checked />
+                      Женский
+                    </label>
+                  </li>
+                </ul>
               </div>
-
             </div>
-          </th>
+
+          </div>
+        </th>
         {{/if}}
 
         {{#if hasOpenPageColumn}}
-          <th class='table__cell'>
-            Страница открыта
-          </th>
+        <th class='table__cell'>
+          Страница открыта
+        </th>
         {{/if}}
-      {{/with}}
+        {{/with}}
 
-    </tr>
-  </thead>
-  <tbody id='tableBody' class='table__body'>
+      </tr>
+    </thead>
+    <tbody id='tableBody' class='table__body'>
       {{#is_empty_array rows}}
       <!-- Пока не знаю, как точно colspan определить -->
-        <tr class="table__body-empty" >
-          <td colspan="10">
-            Нет данных
-          </td>
-        </tr>
+      <tr class="table__body-empty">
+        <td colspan="10">
+          Нет данных
+        </td>
+      </tr>
       {{/is_empty_array}}
 
       {{#each rows as |rows|}}
-        <tr class="table__body-row">
-          <td class='table__cell'>
-            <div>
-              <a href={{rows.friend_vk_page_link}} target="_blank">
-          <i class="icon icon_size_m icon_type_vk-logo">
-          </i>
-        </a>
-        {{rows.first_name}}
-            </div>
-             
-          </td>
-          <td class='table__cell'>
-            {{rows.last_name}}
-          </td>
+      <tr class="table__body-row">
+        <td class='table__cell'>
+          <div>
+            <a href={{rows.friend_vk_page_link}} target="_blank">
+              <i class="icon icon_size_m icon_type_vk-logo">
+              </i>
+            </a>
+            {{rows.first_name}}
+          </div>
 
-          {{#if ../head.hasSexColumn}}
-            <td class='table__cell'>
-              {{rows.sex_text}}
-            </td>
-          {{/if}}
+        </td>
+        <td class='table__cell'>
+          {{rows.last_name}}
+        </td>
 
-          {{#if ../head.hasOpenPageColumn}}
-            <td class='table__cell'>
-              {{rows.is_close_text}}
-            </td>
-          {{/if}}
+        {{#if ../head.hasSexColumn}}
+        <td class='table__cell'>
+          {{rows.sex_text}}
+        </td>
+        {{/if}}
 
-        </tr>
+        {{#if ../head.hasOpenPageColumn}}
+        <td class='table__cell'>
+          {{rows.is_close_text}}
+        </td>
+        {{/if}}
+
+      </tr>
       {{/each}}
-  
 
-  </tbody>
-  <!-- 
+
+    </tbody>
+    <!-- 
     Этот скрипт не срабатывает при вставке частичного представления в html...
     <script>
     document.querySelectorAll('thead [data-popover-id]').forEach((triggerElement) => {
@@ -108,5 +102,39 @@
     })
 
   </script>-->
-   
-</table>
+
+  </table>
+
+  {{#with pagination}}
+
+  <div class="pagination">
+    <input type="hidden" value={{currentPage}} id="currentPage">
+    {{#if paginationButtons.buttonPrev}}
+    <button class="pagination__button" data-is-prev>
+      &lt;
+    </button>
+    {{/if}}
+
+    {{#each paginationButtons.buttons}}
+    {{#if this}}
+    <button
+      class="pagination__button {{#if_eq this ../../pagination.currentPage}} pagination__button_active {{/if_eq}}">
+      {{this}}
+    </button>
+    {{else}}
+    ...
+    {{/if}}
+
+
+    {{/each}}
+
+    {{#if paginationButtons.buttonNext}}
+    <button class="pagination__button" data-is-next>
+      &gt;
+    </button>
+    {{/if}}
+
+  </div>
+
+  {{/with}}
+</div>

@@ -8,6 +8,9 @@ export const getTableData = async () => {
   const filterPanelForm =
     document.querySelector<HTMLFormElement>('#filterPanelForm');
 
+  const currentPage =
+    document.querySelector<HTMLInputElement>('#currentPage')?.value ?? '1';
+
   if (!filterPanelForm) {
     return;
   }
@@ -16,6 +19,7 @@ export const getTableData = async () => {
   const requestParams: GetTableDataRequestParams = {
     ...Object.fromEntries(formData),
     userId,
+    currentPage,
   };
 
   const loader = document.querySelector('.loader');

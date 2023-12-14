@@ -40,6 +40,17 @@ const hbs = create({
     ) {
       return array?.length ? opts.inverse(this) : opts.fn(this);
     },
+    compare: function (
+      a: any,
+      b: any,
+      opts: { fn: (arg0: any) => any; inverse: (arg0: any) => any }
+    ) {
+      if (a > b) {
+        return opts.fn(this);
+      } else {
+        return opts.inverse(this);
+      }
+    },
   },
 });
 
@@ -94,7 +105,7 @@ app.get(
 
     try {
       const response = await fetch(url_service);
-      console.log(response);
+
       if (response.ok) {
         const result = await response.json();
         if (result.error) {
@@ -128,12 +139,45 @@ app.get(
       friend_vk_page_link: `https://vk.com/${friend.domain}`,
     }));
 
+    const PAGE_SIZE = 20;
+    const totalPages = Math.ceil(tableRows.length / PAGE_SIZE);
+    const currentPage = req.query.currentPage
+      ? Number(req.query.currentPage)
+      : 1;
+
+    const paginationButtons = {
+      buttonPrev: totalPages > 6,
+      buttonNext: totalPages > 6,
+      buttons:
+        totalPages > 6
+          ? [currentPage, currentPage + 1, false, totalPages - 1, totalPages]
+          : Array(6)
+              .fill('')
+              .map((_, index) => ++index),
+    };
+
+    const pagination =
+      tableRows.length <= PAGE_SIZE
+        ? null
+        : {
+            currentPage,
+            pageSize: PAGE_SIZE,
+            totalPages: Math.ceil(tableRows.length / PAGE_SIZE),
+            paginationButtons,
+          };
+
     const tableBody = await hbs.render(
       __dirname + '/views/partials/table.hbs',
       {
         title: 'ok',
         head: req.query,
-        rows: tableRows,
+        rows: pagination
+          ? tableRows.slice(
+              (currentPage - 1) * PAGE_SIZE,
+              currentPage * PAGE_SIZE + 1
+            )
+          : tableRows,
+        pagination,
       }
     );
 
