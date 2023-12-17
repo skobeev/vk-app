@@ -1,3 +1,4 @@
+import { getNextSortDirection } from '../helpers/get-next-sort-direction';
 import { getTableData } from './get-table-data';
 
 document
@@ -58,5 +59,29 @@ document.body.addEventListener('click', (event) => {
       pageSizeInputElement.value = String(currentPage);
     }
     getTableData();
+  }
+});
+
+const pageTableElement = document.querySelector('.page__table');
+
+pageTableElement?.addEventListener('click', (event) => {
+  const target = event.target as HTMLInputElement;
+
+  const button = target.closest('#sortBySex');
+  if (
+    button &&
+    pageTableElement.contains(button) &&
+    button.id === 'sortBySex'
+  ) {
+    const sortDirectionInputElement = document.querySelector<HTMLInputElement>(
+      '#sortDirectionSexColumn'
+    );
+
+    if (sortDirectionInputElement) {
+      sortDirectionInputElement.value = getNextSortDirection(
+        sortDirectionInputElement.value
+      );
+      getTableData();
+    }
   }
 });

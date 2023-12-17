@@ -7,8 +7,9 @@ import { TOKEN } from './src/token';
 import { PROXY_URL } from './src/constants/proxy-URL';
 import { FriendListResponse } from './src/types/FriendListResponse';
 import { GetTableDataRequestParams } from './src/api/get-table-data/dto/get-table-data-request-params';
-import { FriendsListItem } from './src/api/get-table-data/dto/friends-list-item';
 import { MAP_SEX_ID_TO_STRING } from './src/constants/mapSexIdToString';
+import { SortOrder } from './src/types/SortOrder';
+import { TableRow } from './src/backend/types/TableRow';
 
 const app = express();
 const PORT = 3001;
@@ -108,7 +109,13 @@ app.get(
 
       if (response.ok) {
         const result = await response.json();
+
         if (result.error) {
+          res.json({
+            isSuccess: false,
+            result: null,
+            error: result.error.error_msg,
+          });
           return;
         }
 
@@ -124,20 +131,25 @@ app.get(
     //   precompiled: true,
     // });
 
-    interface TableRow extends Partial<FriendsListItem> {
-      sex_text: string;
-      is_close_text: string;
-    }
-
     const tableRows = friendsResponse.items.map<TableRow>((friend) => ({
       first_name: friend.first_name,
       last_name: friend.last_name,
       sex: friend.sex,
       is_closed: friend.is_closed,
       sex_text: MAP_SEX_ID_TO_STRING[friend.sex],
-      is_close_text: friend.is_closed ? 'да' : 'нет',
+      is_open_text: friend.is_closed ? 'нет' : 'да',
       friend_vk_page_link: `https://vk.com/${friend.domain}`,
     }));
+
+    if (req.query.sortDirectionSexColumn) {
+      tableRows.sort((a, b) => {
+        if (req.query.sortDirectionSexColumn === SortOrder.Asc) {
+          return a.sex_text > b.sex_text ? 1 : -1;
+        } else {
+          return a.sex_text < b.sex_text ? 1 : -1;
+        }
+      });
+    }
 
     const PAGE_SIZE = 20;
     const totalPages = Math.ceil(tableRows.length / PAGE_SIZE);
@@ -169,7 +181,6 @@ app.get(
     const tableBody = await hbs.render(
       __dirname + '/views/partials/table.hbs',
       {
-        title: 'ok',
         head: req.query,
         rows: pagination
           ? tableRows.slice(

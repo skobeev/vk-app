@@ -1,98 +1,109 @@
 <div class="table-container">
-  <table class='table'>
-    <thead class='table__head'>
-      <tr>
-        <th class='table__cell'>
-          Имя
-        </th>
-        <th class='table__cell'>
-          Фамилия
-        </th>
-        {{#with head}}
-        {{#if hasSexColumn}}
-        <th class='table__cell'>
-          <div class='table__cell-content'>
-            Пол
-            <div>
-              <button class='icon' data-popover-id='sex-popover-table'>
-                <i class='icon icon_size_s icon_type_filter'>
+  <div class="table-container__content">
+    <table class='table'>
+      <thead class='table__head'>
+        <tr>
+          <th class='table__cell'>
+            Имя
+          </th>
+          <th class='table__cell'>
+            Фамилия
+          </th>
+          {{#with head}}
+          {{#if hasSexColumn}}
+          <th class='table__cell'>
+            <div class='table__cell-head-content'>
+              <span>
+                Пол
+              </span>
+              <div class="table_cell-head-filters">
+                <button class='icon' data-popover-id='sex-popover-table'>
+                  <i class='icon icon_size_m icon_type_filter'>
+                  </i>
+                </button>
+                <button class="icon" id="sortBySex">
+                  <i class="icon icon_size_m icon_type_sort-default">
                 </i>
-              </button>
-              <div class='dropdown-menu' data-popover-container-id='sex-popover-table'>
-                <ul>
-                  <li>
-                    <label>
-                      <input type='checkbox' data-filter-sex='male' checked />
-                      Мужской
-                    </label>
-                  </li>
-                  <li>
-                    <label>
-                      <input type='checkbox' data-filter-sex='female' checked />
-                      Женский
-                    </label>
-                  </li>
-                </ul>
+                <input type="hidden" id="sortDirectionSexColumn" value={{sortDirectionSexColumn}}>
+                </button>
+                <div class='dropdown-menu' data-popover-container-id='sex-popover-table'>
+                  <ul>
+                    <li>
+                      <label>
+                        <input type='checkbox' data-filter-sex='male' checked />
+                        Мужской
+                      </label>
+                    </li>
+                    <li>
+                      <label>
+                        <input type='checkbox' data-filter-sex='female' checked />
+                        Женский
+                      </label>
+                    </li>
+                  </ul>
+                  <button>
+                    Применить
+                  </button>
+                </div>
               </div>
+
+            </div>
+          </th>
+          {{/if}}
+
+          {{#if hasOpenPageColumn}}
+          <th class='table__cell'>
+            Страница открыта
+          </th>
+          {{/if}}
+          {{/with}}
+
+        </tr>
+      </thead>
+      <tbody id='tableBody' class='table__body'>
+        {{#is_empty_array rows}}
+        <!-- Пока не знаю, как точно colspan определить -->
+        <tr class="table__body-empty">
+          <td colspan="10">
+            Нет данных
+          </td>
+        </tr>
+        {{/is_empty_array}}
+
+        {{#each rows as |rows|}}
+        <tr class="table__body-row">
+          <td class='table__cell'>
+            <div class="table__cell-content">
+              <a href={{rows.friend_vk_page_link}} target="_blank" class="table__cell-vk-page-link">
+                <i class="icon icon_size_m icon_type_vk-logo">
+                </i>
+              </a>
+              {{rows.first_name}}
             </div>
 
-          </div>
-        </th>
-        {{/if}}
+          </td>
+          <td class='table__cell'>
+            {{rows.last_name}}
+          </td>
 
-        {{#if hasOpenPageColumn}}
-        <th class='table__cell'>
-          Страница открыта
-        </th>
-        {{/if}}
-        {{/with}}
+          {{#if ../head.hasSexColumn}}
+          <td class='table__cell'>
+            {{rows.sex_text}}
+          </td>
+          {{/if}}
 
-      </tr>
-    </thead>
-    <tbody id='tableBody' class='table__body'>
-      {{#is_empty_array rows}}
-      <!-- Пока не знаю, как точно colspan определить -->
-      <tr class="table__body-empty">
-        <td colspan="10">
-          Нет данных
-        </td>
-      </tr>
-      {{/is_empty_array}}
+          {{#if ../head.hasOpenPageColumn}}
+          <td class='table__cell'>
+               {{rows.is_open_text}}
+          </td>
+          {{/if}}
 
-      {{#each rows as |rows|}}
-      <tr class="table__body-row">
-        <td class='table__cell'>
-          <div>
-            <a href={{rows.friend_vk_page_link}} target="_blank">
-              <i class="icon icon_size_m icon_type_vk-logo">
-              </i>
-            </a>
-            {{rows.first_name}}
-          </div>
-
-        </td>
-        <td class='table__cell'>
-          {{rows.last_name}}
-        </td>
-
-        {{#if ../head.hasSexColumn}}
-        <td class='table__cell'>
-          {{rows.sex_text}}
-        </td>
-        {{/if}}
-
-        {{#if ../head.hasOpenPageColumn}}
-        <td class='table__cell'>
-          {{rows.is_close_text}}
-        </td>
-        {{/if}}
-
-      </tr>
-      {{/each}}
+        </tr>
+        {{/each}}
 
 
-    </tbody>
-    <!-- 
+      </tbody>
+      <!-- 
     Этот скрипт не срабатывает при вставке частичного представления в html...
     <script>
     document.querySelectorAll('thead [data-popover-id]').forEach((triggerElement) => {
@@ -103,7 +114,9 @@
 
   </script>-->
 
-  </table>
+    </table>
+  </div>
+
 
   {{#with pagination}}
 

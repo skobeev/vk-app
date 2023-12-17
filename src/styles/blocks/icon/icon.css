@@ -1,6 +1,7 @@
 .icon {
   background-size: cover;
   display: inline-block;
+  border: 0;
 }
 
 .icon_size_s {
@@ -23,4 +24,16 @@
 
 .icon_type_arrow-right {
   background-image: url('../../../assets/arrow-right.png');
+}
+
+.icon_type_sort-default {
+  background-image: url('../../../assets/sort-default.png');
+}
+
+.icon_type_sort-asc {
+  background-image: url('../../../assets/sort-asc.png');
+}
+
+.icon_type_sort-desc {
+  background-image: url('../../../assets/sort-desc.png');
 }

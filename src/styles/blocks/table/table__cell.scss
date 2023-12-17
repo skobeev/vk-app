@@ -1,9 +1,24 @@
 .table__cell {
   padding: 6px 10px;
-  text-align: center;
+  text-align: left;
 }
 
 .table__cell-content {
   display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.table__cell-head-content {
+  display: flex;
   justify-content: space-between;
+}
+
+.table__cell-head-filters {
+  display: inline-flex;
+  gap: 6px;
+}
+
+.table__cell-vk-page-link {
+  display: inline-block;
 }

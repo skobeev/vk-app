@@ -1,0 +1,13 @@
+.notification {
+  position: fixed;
+  display: flex;
+  top: 20px;
+  background-color: rgba(232, 244, 255, 0.5);
+  padding: 12px 8px;
+  font-size: 18px;
+  left: auto;
+}
+
+.notification_hidden {
+  display: none;
+}

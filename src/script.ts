@@ -1,4 +1,4 @@
-// вынести и упростить
+// вынести и упростить все функции
 document
   .querySelector('.filter-panel__footer')
   ?.addEventListener('click', (event) => {
@@ -23,4 +23,12 @@ document
   .forEach((element) => {
     const checked = localStorage.getItem(element.id) === 'true';
     element.checked = checked;
+  });
+
+document
+  .querySelector('.notification__close')
+  ?.addEventListener('click', () => {
+    document
+      .querySelector('.notification')
+      ?.classList.add('notification_hidden');
   });
