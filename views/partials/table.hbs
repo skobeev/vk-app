@@ -3,13 +3,53 @@
     <table class='table'>
       <thead class='table__head'>
         <tr>
+          <input type="hidden" id="sortDirection" value={{head.sortDirection}}>
+          <input type="hidden" id="sortedColumnId" value={{head.sortedColumnId}}>
           <th class='table__cell'>
-            Имя
+            <div class='table__cell-head-content'>
+              <span>
+                Имя
+              </span>
+              <div class="table_cell-head-filters">
+
+                <button class="icon" id="sortByName" data-sort-column>
+                  <i class="icon icon_size_m  
+                  {{#if (if_eq head.sortDirectionNameColumn 'asc') }} 
+                    icon_type_sort-asc
+                  {{else if (if_eq head.sortDirectionNameColumn 'desc') }}
+                    icon_type_sort-desc 
+                  {{else}}
+                    icon_type_sort-default
+                  {{/if}}">
+                  </i>
+                </button>
+              </div>
+            </div>
+
           </th>
           <th class='table__cell'>
-            Фамилия
+            <div class='table__cell-head-content'>
+              <span>
+                Фамилия
+              </span>
+              <div class="table_cell-head-filters">
+
+                <button class="icon" id="sortByLastName" data-sort-column>
+                  <i class="icon icon_size_m
+                  {{#if (if_eq head.sortDirectionLastNameColumn 'asc') }} 
+                    icon_type_sort-asc
+                  {{else if (if_eq head.sortDirectionLastNameColumn 'desc') }}
+                    icon_type_sort-desc 
+                  {{else}}
+                    icon_type_sort-default
+                  {{/if}}">
+                  </i>
+                </button>
+              </div>
+            </div>
+          
           </th>
-          {{#with head}}
+          {{#with head as |head|}}
           {{#if hasSexColumn}}
           <th class='table__cell'>
             <div class='table__cell-head-content'>
@@ -17,34 +57,18 @@
                 Пол
               </span>
               <div class="table_cell-head-filters">
-                <button class='icon' data-popover-id='sex-popover-table'>
-                  <i class='icon icon_size_m icon_type_filter'>
+                <button class="icon" id="sortBySex" data-sort-column>
+                  <i class="icon icon_size_m  
+                  {{#if (if_eq head.sortDirectionSexColumn 'asc') }} 
+                    icon_type_sort-asc
+                  {{else if (if_eq head.sortDirectionSexColumn 'desc') }}
+                    icon_type_sort-desc 
+                  {{else}}
+                    icon_type_sort-default
+                  {{/if}}">
                   </i>
+                  <input type="hidden" id="sortDirectionSexColumn" value={{sortDirectionSexColumn}}>
                 </button>
-                <button class="icon" id="sortBySex">
-                  <i class="icon icon_size_m icon_type_sort-default">
-                </i>
-                <input type="hidden" id="sortDirectionSexColumn" value={{sortDirectionSexColumn}}>
-                </button>
-                <div class='dropdown-menu' data-popover-container-id='sex-popover-table'>
-                  <ul>
-                    <li>
-                      <label>
-                        <input type='checkbox' data-filter-sex='male' checked />
-                        Мужской
-                      </label>
-                    </li>
-                    <li>
-                      <label>
-                        <input type='checkbox' data-filter-sex='female' checked />
-                        Женский
-                      </label>
-                    </li>
-                  </ul>
-                  <button>
-                    Применить
-                  </button>
-                </div>
               </div>
 
             </div>
@@ -53,7 +77,25 @@
 
           {{#if hasOpenPageColumn}}
           <th class='table__cell'>
-            Страница открыта
+            <div class='table__cell-head-content'>
+              <span>
+                 Страница открыта
+              </span>
+              <div class="table_cell-head-filters">
+                <button class="icon" id="sortByOpenPage" data-sort-column>
+                  <i class="icon icon_size_m
+                  {{#if (if_eq head.sortDirectionPageOpenColumn 'asc') }} 
+                    icon_type_sort-asc
+                  {{else if (if_eq head.sortDirectionPageOpenColumn 'desc') }}
+                    icon_type_sort-desc 
+                  {{else}}
+                    icon_type_sort-default
+                  {{/if}}">
+                  </i>
+                </button>
+              </div>
+            </div>
+           
           </th>
           {{/if}}
           {{/with}}
@@ -65,7 +107,7 @@
         <!-- Пока не знаю, как точно colspan определить -->
         <tr class="table__body-empty">
           <td colspan="10">
-            Нет данных
+            Пользователи не нашлись
           </td>
         </tr>
         {{/is_empty_array}}
@@ -94,7 +136,7 @@
 
           {{#if ../head.hasOpenPageColumn}}
           <td class='table__cell'>
-               {{rows.is_open_text}}
+            {{rows.is_open_text}}
           </td>
           {{/if}}
 
@@ -131,7 +173,7 @@
     {{#each paginationButtons.buttons}}
     {{#if this}}
     <button
-      class="pagination__button {{#if_eq this ../../pagination.currentPage}} pagination__button_active {{/if_eq}}">
+      class="pagination__button {{#if (if_eq this ../../pagination.currentPage)}} pagination__button_active {{/if}}">
       {{this}}
     </button>
     {{else}}

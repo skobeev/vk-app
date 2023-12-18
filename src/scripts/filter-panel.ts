@@ -67,20 +67,24 @@ const pageTableElement = document.querySelector('.page__table');
 pageTableElement?.addEventListener('click', (event) => {
   const target = event.target as HTMLInputElement;
 
-  const button = target.closest('#sortBySex');
-  if (
-    button &&
-    pageTableElement.contains(button) &&
-    button.id === 'sortBySex'
-  ) {
-    const sortDirectionInputElement = document.querySelector<HTMLInputElement>(
-      '#sortDirectionSexColumn'
-    );
+  const button = target.closest('[data-sort-column]');
+  if (button && pageTableElement.contains(button)) {
+    const sortDirectionInputElement =
+      document.querySelector<HTMLInputElement>('#sortDirection');
 
-    if (sortDirectionInputElement) {
-      sortDirectionInputElement.value = getNextSortDirection(
-        sortDirectionInputElement.value
-      );
+    const currentSortedColumnInputElement =
+      document.querySelector<HTMLInputElement>('#sortedColumnId');
+
+    if (sortDirectionInputElement && currentSortedColumnInputElement) {
+      if (currentSortedColumnInputElement?.value === button.id) {
+        sortDirectionInputElement.value = getNextSortDirection(
+          sortDirectionInputElement.value
+        );
+      } else {
+        sortDirectionInputElement.value = 'asc';
+
+        currentSortedColumnInputElement.value = button.id;
+      }
       getTableData();
     }
   }

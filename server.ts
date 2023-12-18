@@ -10,6 +10,9 @@ import { GetTableDataRequestParams } from './src/api/get-table-data/dto/get-tabl
 import { MAP_SEX_ID_TO_STRING } from './src/constants/mapSexIdToString';
 import { SortOrder } from './src/types/SortOrder';
 import { TableRow } from './src/backend/types/TableRow';
+import { SortState } from './src/backend/types/SortState';
+import { ColumsIds } from './src/backend/constants/column-ids';
+import { MAP_COLUMN_ID_TO_DATA_FIELD } from './src/backend/constants/map-column-id-to-data-field-name';
 
 const app = express();
 const PORT = 3001;
@@ -29,11 +32,7 @@ const hbs = create({
       b: any,
       opts: { fn: (arg0: any) => any; inverse: (arg0: any) => any }
     ) {
-      if (a == b) {
-        return opts.fn(this);
-      } else {
-        return opts.inverse(this);
-      }
+      return a == b;
     },
     is_empty_array: function (
       array: unknown[] | undefined,
@@ -141,12 +140,42 @@ app.get(
       friend_vk_page_link: `https://vk.com/${friend.domain}`,
     }));
 
-    if (req.query.sortDirectionSexColumn) {
+    const sortState: SortState = {
+      sortDirectionNameColumn: '',
+      sortDirectionLastNameColumn: '',
+      sortDirectionSexColumn: '',
+      sortDirectionPageOpenColumn: '',
+    };
+
+    if (req.query.sortDirection) {
+      // надо бы просто через пару ключ-значение получать имена полей, чтобы не писать одинаковую строчку
+      switch (req.query.sortedColumnId) {
+        // если d
+        case ColumsIds.SortName:
+          sortState.sortDirectionNameColumn = req.query.sortDirection;
+          break;
+        case ColumsIds.SortByLastName:
+          sortState.sortDirectionLastNameColumn = req.query.sortDirection;
+          break;
+        case ColumsIds.SortBySex:
+          sortState.sortDirectionSexColumn = req.query.sortDirection;
+          break;
+        case ColumsIds.SortByOpenPage:
+          sortState.sortDirectionPageOpenColumn = req.query.sortDirection;
+          break;
+      }
+
+      const sortedFieldName =
+        //@ts-ignore надо разобраться с типами
+        MAP_COLUMN_ID_TO_DATA_FIELD[req.query.sortedColumnId];
+
       tableRows.sort((a, b) => {
-        if (req.query.sortDirectionSexColumn === SortOrder.Asc) {
-          return a.sex_text > b.sex_text ? 1 : -1;
+        if (req.query.sortDirection === SortOrder.Asc) {
+          //@ts-ignore надо разобраться с типами
+          return a[sortedFieldName] > b[sortedFieldName] ? 1 : -1;
         } else {
-          return a.sex_text < b.sex_text ? 1 : -1;
+          //@ts-ignore надо разобраться с типами
+          return a[sortedFieldName] < b[sortedFieldName] ? 1 : -1;
         }
       });
     }
@@ -181,7 +210,10 @@ app.get(
     const tableBody = await hbs.render(
       __dirname + '/views/partials/table.hbs',
       {
-        head: req.query,
+        head: {
+          ...req.query,
+          ...sortState,
+        },
         rows: pagination
           ? tableRows.slice(
               (currentPage - 1) * PAGE_SIZE,

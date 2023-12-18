@@ -12,9 +12,11 @@ export const getTableData = async () => {
   const currentPage =
     document.querySelector<HTMLInputElement>('#currentPage')?.value ?? '1';
 
-  const sortDirectionSexColumn =
-    document.querySelector<HTMLInputElement>('#sortDirectionSexColumn')
-      ?.value ?? undefined;
+  const sortDirection =
+    document.querySelector<HTMLInputElement>('#sortDirection')?.value ?? '';
+
+  const currentSortedColumnId =
+    document.querySelector<HTMLInputElement>('#sortedColumnId')?.value ?? '';
 
   if (!filterPanelForm) {
     return;
@@ -25,7 +27,8 @@ export const getTableData = async () => {
     ...Object.fromEntries(formData),
     userId,
     currentPage,
-    sortDirectionSexColumn: sortDirectionSexColumn as SortOrder,
+    sortDirection: sortDirection as SortOrder,
+    sortedColumnId: currentSortedColumnId,
   };
 
   const loader = document.querySelector('.loader');

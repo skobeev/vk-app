@@ -5,5 +5,6 @@ export interface GetTableDataRequestParams {
   hasSexColumn?: string;
   hasOpenPageColumn?: string;
   currentPage?: string;
-  sortDirectionSexColumn?: SortOrder;
+  sortDirection: SortOrder;
+  sortedColumnId: string;
 }

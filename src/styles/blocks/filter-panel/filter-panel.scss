@@ -4,6 +4,8 @@
 @import './filter-panel__title.scss';
 @import './filter-panel__footer.scss';
 @import './filter-panel__content.scss';
+/*нельзя импортировать сюда css...*/
+@import './filter-panel__form.scss';
 
 .filter-panel {
   padding: 10px;

@@ -13,6 +13,15 @@
           {{>checkbox label="Страница открыта" checked="true" name="hasOpenPageColumn" id="hasOpenPageColumn"}}
         </div>
       </div>
+      <div class="filter-panel__group">
+        <span class="filter-panel__group-name">
+          Пол пользователя
+        </span>
+        <div class="filter-panel__group-content">
+          {{>checkbox label="Мужской" checked="true" name="isMan" id="isMan"}}
+          {{>checkbox label="Женский" checked="true" name="isWoman" id="isWoman"}}
+        </div>
+      </div>
       <button id='applyFilter' class="button-query" type="submit">Применить</button>
     </form>
 
