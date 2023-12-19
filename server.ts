@@ -13,6 +13,7 @@ import { TableRow } from './src/backend/types/TableRow';
 import { SortState } from './src/backend/types/SortState';
 import { ColumsIds } from './src/backend/constants/column-ids';
 import { MAP_COLUMN_ID_TO_DATA_FIELD } from './src/backend/constants/map-column-id-to-data-field-name';
+import { Sex } from './src/types/Sex';
 
 const app = express();
 const PORT = 3001;
@@ -130,7 +131,7 @@ app.get(
     //   precompiled: true,
     // });
 
-    const tableRows = friendsResponse.items.map<TableRow>((friend) => ({
+    let tableRows = friendsResponse.items.map<TableRow>((friend) => ({
       first_name: friend.first_name,
       last_name: friend.last_name,
       sex: friend.sex,
@@ -178,6 +179,12 @@ app.get(
           return a[sortedFieldName] < b[sortedFieldName] ? 1 : -1;
         }
       });
+    }
+
+    if (!req.query.isMan || !req.query.isWoman) {
+      tableRows = tableRows.filter((user) =>
+        user.sex === Sex.Male ? req.query.isMan : req.query.isWoman
+      );
     }
 
     const PAGE_SIZE = 20;

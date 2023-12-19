@@ -1,3 +1,5 @@
+import { getTableData } from './scripts/get-table-data';
+
 // вынести и упростить все функции
 document
   .querySelector('.filter-panel__footer')
@@ -32,3 +34,5 @@ document
       .querySelector('.notification')
       ?.classList.add('notification_hidden');
   });
+
+getTableData();
