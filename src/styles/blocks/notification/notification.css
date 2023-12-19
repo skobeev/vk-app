@@ -14,3 +14,7 @@
 .notification_hidden {
   display: none;
 }
+
+.notification__btn-close {
+  width: 100px;
+}
