@@ -28,7 +28,7 @@ document
   });
 
 document
-  .querySelector('.notification__close')
+  .querySelector('.notification__btn-close')
   ?.addEventListener('click', () => {
     document
       .querySelector('.notification')

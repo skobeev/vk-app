@@ -1,11 +1,14 @@
 .notification {
   position: fixed;
   display: flex;
+  flex-direction: column;
+  gap: 10px;
   top: 20px;
-  background-color: rgba(232, 244, 255, 0.5);
+  background-color: rgba(135, 198, 255, 0.5);
   padding: 12px 8px;
   font-size: 18px;
-  left: auto;
+  left: 50%;
+  transform: translate(-50%, 0);
 }
 
 .notification_hidden {
