@@ -1,24 +1,29 @@
-.table__cell {
+.table-cell {
   padding: 6px 10px;
   text-align: left;
+  width: 200px;
 }
 
-.table__cell-content {
+.table-cell__content {
   display: flex;
   gap: 10px;
   align-items: center;
 }
 
-.table__cell-head-content {
+.table-cell__head-content {
   display: flex;
   justify-content: space-between;
 }
 
-.table__cell-head-filters {
+.table-cell__head-filters {
   display: inline-flex;
   gap: 6px;
 }
 
-.table__cell-vk-page-link {
+.table-cell__vk-page-link {
   display: inline-block;
+}
+
+.table-cell__vk-page-link:hover {
+  opacity: 0.7;
 }

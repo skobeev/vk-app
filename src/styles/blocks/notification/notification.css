@@ -4,11 +4,14 @@
   flex-direction: column;
   gap: 10px;
   top: 20px;
-  background-color: rgba(135, 198, 255, 0.5);
+  background-color: #fff;
   padding: 12px 8px;
   font-size: 18px;
   left: 50%;
   transform: translate(-50%, 0);
+  max-width: 350px;
+  border-radius: 20px;
+  border: 2px solid rgb(76, 216, 255);
 }
 
 .notification_hidden {

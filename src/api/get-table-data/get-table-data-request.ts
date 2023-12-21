@@ -17,7 +17,7 @@ export const getTableDataRequest = async (
   }));
   const queryString = createStringWithQueryParams(queryParams);
 
-  return await fetch(`/getTableData?${queryString}`, { method: 'GET' })
+  return await fetch(`/getTableData${queryString}`, { method: 'GET' })
     .then((res) => res.json())
     .then((res) => res);
 };

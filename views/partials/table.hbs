@@ -5,12 +5,12 @@
         <tr>
           <input type="hidden" id="sortDirection" value={{head.sortDirection}}>
           <input type="hidden" id="sortedColumnId" value={{head.sortedColumnId}}>
-          <th class='table__cell'>
-            <div class='table__cell-head-content'>
+          <th class='table-cell'>
+            <div class='table-cell__head-content'>
               <span>
                 Имя
               </span>
-              <div class="table_cell-head-filters">
+              <div class="table-cell__head-filters">
 
                 <button class="icon" id="sortByName" data-sort-column>
                   <i class="icon icon_size_m  
@@ -27,12 +27,12 @@
             </div>
 
           </th>
-          <th class='table__cell'>
-            <div class='table__cell-head-content'>
+          <th class='table-cell'>
+            <div class='table-cell__head-content'>
               <span>
                 Фамилия
               </span>
-              <div class="table_cell-head-filters">
+              <div class="table-cell__head-filters">
 
                 <button class="icon" id="sortByLastName" data-sort-column>
                   <i class="icon icon_size_m
@@ -51,12 +51,12 @@
           </th>
           {{#with head as |head|}}
           {{#if hasSexColumn}}
-          <th class='table__cell'>
-            <div class='table__cell-head-content'>
+          <th class='table-cell'>
+            <div class='table-cell__head-content'>
               <span>
                 Пол
               </span>
-              <div class="table_cell-head-filters">
+              <div class="table-cell__head-filters">
                 <button class="icon" id="sortBySex" data-sort-column>
                   <i class="icon icon_size_m  
                   {{#if (if_eq head.sortDirectionSexColumn 'asc') }} 
@@ -76,12 +76,12 @@
           {{/if}}
 
           {{#if hasOpenPageColumn}}
-          <th class='table__cell'>
-            <div class='table__cell-head-content'>
+          <th class='table-cell'>
+            <div class='table-cell__head-content'>
               <span>
                  Страница открыта
               </span>
-              <div class="table_cell-head-filters">
+              <div class="table-cell__head-filters">
                 <button class="icon" id="sortByOpenPage" data-sort-column>
                   <i class="icon icon_size_m
                   {{#if (if_eq head.sortDirectionPageOpenColumn 'asc') }} 
@@ -103,20 +103,20 @@
         </tr>
       </thead>
       <tbody id='tableBody' class='table__body'>
-        {{#is_empty_array rows}}
+        {{#if (if_eq rows.length 0)}}
         <!-- Пока не знаю, как точно colspan определить -->
         <tr class="table__body-empty">
           <td colspan="10">
             Пользователи не нашлись
           </td>
         </tr>
-        {{/is_empty_array}}
+        {{/if}}
 
         {{#each rows as |rows|}}
         <tr class="table__body-row">
-          <td class='table__cell'>
-            <div class="table__cell-content">
-              <a href={{rows.friend_vk_page_link}} target="_blank" class="table__cell-vk-page-link" title="перейти на страницу vk">
+          <td class='table-cell'>
+            <div class="table-cell__content">
+              <a href={{rows.friend_vk_page_link}} target="_blank" class="table-cell__vk-page-link" title="перейти на страницу vk">
                 <i class="icon icon_size_m icon_type_vk-logo">
                 </i>
               </a>
@@ -124,18 +124,18 @@
             </div>
 
           </td>
-          <td class='table__cell'>
+          <td class='table-cell'>
             {{rows.last_name}}
           </td>
 
           {{#if ../head.hasSexColumn}}
-          <td class='table__cell'>
+          <td class='table-cell'>
             {{rows.sex_text}}
           </td>
           {{/if}}
 
           {{#if ../head.hasOpenPageColumn}}
-          <td class='table__cell'>
+          <td class='table-cell'>
             {{rows.is_open_text}}
           </td>
           {{/if}}
@@ -160,12 +160,13 @@
   </div>
 
 
-  {{#with pagination}}
 
-  <div class="pagination">
-    <input type="hidden" value={{currentPage}} id="currentPage">
-    {{#if paginationButtons.buttonPrev}}
-    <button class="pagination__button" data-is-prev>
+
+  <div class="pagination {{#if pagination}}{{else}}pagination_hidden{{/if}}" >
+    <input type="hidden" value="{{pagination.currentPage}}" id="currentPage">
+    {{#with pagination}}
+    {{#if paginationButtons.needShowButtonPrev}}
+    <button class="pagination__button {{#if (if_eq 1 ../pagination.currentPage)}} pagination__button_disabled{{/if}}" data-is-prev>
       &lt;
     </button>
     {{/if}}
@@ -183,13 +184,13 @@
 
     {{/each}}
 
-    {{#if paginationButtons.buttonNext}}
-    <button class="pagination__button" data-is-next>
+    {{#if paginationButtons.needShowButtonNext}}
+    <button class="pagination__button {{#if (if_eq ../pagination.totalPages ../pagination.currentPage)}} pagination__button_disabled{{/if}}" data-is-next >
       &gt;
     </button>
     {{/if}}
-
+    {{/with}}
   </div>
 
-  {{/with}}
+  
 </div>

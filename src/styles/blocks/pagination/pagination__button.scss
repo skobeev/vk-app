@@ -8,3 +8,8 @@
 .pagination__button_active {
   background-color: #8eecff;
 }
+
+.pagination__button_disabled {
+  border-color: #c3c3c3;
+  pointer-events: none;
+}

@@ -12,5 +12,5 @@ export const createStringWithQueryParams = (params: QueryParamModel[]) => {
     []
   );
 
-  return queryParamsArray.join('&');
+  return '?' + queryParamsArray.join('&');
 };
