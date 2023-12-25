@@ -3,16 +3,30 @@
     <span class="filter-panel__title">
       Панель фильтров
     </span>
-    <div class="filter-panel__group">
-      <span class="filter-panel__group-name">
-        Столбцы
-      </span>
-      <div class="filter-panel__group-content">
-        {{>checkbox label="Пол" checked="true"}}
-        {{>checkbox label="Страница открыта" checked="true"}}
+    <form class="filter-panel__form" id="filterPanelForm">
+      <div class="filter-panel__group">
+        <span class="filter-panel__group-name">
+          Столбцы
+        </span>
+        <div class="filter-panel__group-content">
+          {{>checkbox label="Пол" checked="true" name="hasSexColumn" id="hasSexColumn"}}
+          {{>checkbox label="Страница открыта" checked="true" name="hasOpenPageColumn" id="hasOpenPageColumn"}}
+        </div>
       </div>
-    </div>
+      <div class="filter-panel__group">
+        <span class="filter-panel__group-name">
+          Пол пользователя
+        </span>
+        <div class="filter-panel__group-content">
+          {{>checkbox label="Мужской" checked="true" name="isMan" id="isMan"}}
+          {{>checkbox label="Женский" checked="true" name="isWoman" id="isWoman"}}
+        </div>
+      </div>
+      <button id='applyFilter' class="button" type="submit">Применить</button>
+    </form>
+    <button id="clearLocalStorage" class="button filter-panel__btn-clear-storage" >Очистить localStorage</button>
   </div>
+ 
   <button class="filter-panel__footer">
     <span class="filter-panel__footer-icon">
       <span class="icon icon_size_m icon_type_arrow-right">

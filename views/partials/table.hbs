@@ -1,54 +1,196 @@
-<table class='table'>
-  <thead class='table__head'>
-    <tr>
-      <th class='table__cell'>
-        Имя
-      </th>
-      <th class='table__cell'>
-        Фамилия
-      </th>
-      <th class='table__cell'>
-        <div class="table__cell-content">
-          Пол
-          <div>
-            <button class="icon" data-popover-id="sex-popover-table">
-              <i class="icon icon_size_s icon_type_filter">
-              </i>
-            </button>
-            <div class="dropdown-menu" data-popover-container-id="sex-popover-table">
-              <ul>
-                <li>
-                  <label>
-                    <input type="checkbox" data-filter-sex="male" checked />
-                    Мужской
-                  </label>
-                </li>
-                <li>
-                  <label>
-                    <input type="checkbox" data-filter-sex="female" checked />
-                    Женский
-                  </label>
-                </li>
-              </ul>
+<div class="table-container">
+  <div class="table-container__content">
+    <table class='table'>
+      <thead class='table__head'>
+        <tr>
+          <input type="hidden" id="sortDirection" value={{head.sortDirection}}>
+          <input type="hidden" id="sortedColumnId" value={{head.sortedColumnId}}>
+          <th class='table-cell'>
+            <div class='table-cell__head-content'>
+              <span>
+                Имя
+              </span>
+              <div class="table-cell__head-filters">
+
+                <button class="icon" id="sortByName" data-sort-column>
+                  <i class="icon icon_size_m  
+                  {{#if (if_eq head.sortDirectionNameColumn 'asc') }} 
+                    icon_type_sort-asc
+                  {{else if (if_eq head.sortDirectionNameColumn 'desc') }}
+                    icon_type_sort-desc 
+                  {{else}}
+                    icon_type_sort-default
+                  {{/if}}">
+                  </i>
+                </button>
+              </div>
             </div>
-          </div>
 
-        </div>
-      </th>
-      <th class='table__cell'>
-        Страница открыта
-      </th>
-    </tr>
-  </thead>
-  <tbody id='tableBody' class='table__body'>
+          </th>
+          <th class='table-cell'>
+            <div class='table-cell__head-content'>
+              <span>
+                Фамилия
+              </span>
+              <div class="table-cell__head-filters">
 
-  </tbody>
-  <script>
+                <button class="icon" id="sortByLastName" data-sort-column>
+                  <i class="icon icon_size_m
+                  {{#if (if_eq head.sortDirectionLastNameColumn 'asc') }} 
+                    icon_type_sort-asc
+                  {{else if (if_eq head.sortDirectionLastNameColumn 'desc') }}
+                    icon_type_sort-desc 
+                  {{else}}
+                    icon_type_sort-default
+                  {{/if}}">
+                  </i>
+                </button>
+              </div>
+            </div>
+          
+          </th>
+          {{#with head as |head|}}
+          {{#if hasSexColumn}}
+          <th class='table-cell'>
+            <div class='table-cell__head-content'>
+              <span>
+                Пол
+              </span>
+              <div class="table-cell__head-filters">
+                <button class="icon" id="sortBySex" data-sort-column>
+                  <i class="icon icon_size_m  
+                  {{#if (if_eq head.sortDirectionSexColumn 'asc') }} 
+                    icon_type_sort-asc
+                  {{else if (if_eq head.sortDirectionSexColumn 'desc') }}
+                    icon_type_sort-desc 
+                  {{else}}
+                    icon_type_sort-default
+                  {{/if}}">
+                  </i>
+                  <input type="hidden" id="sortDirectionSexColumn" value={{sortDirectionSexColumn}}>
+                </button>
+              </div>
+
+            </div>
+          </th>
+          {{/if}}
+
+          {{#if hasOpenPageColumn}}
+          <th class='table-cell'>
+            <div class='table-cell__head-content'>
+              <span>
+                 Страница открыта
+              </span>
+              <div class="table-cell__head-filters">
+                <button class="icon" id="sortByOpenPage" data-sort-column>
+                  <i class="icon icon_size_m
+                  {{#if (if_eq head.sortDirectionPageOpenColumn 'asc') }} 
+                    icon_type_sort-asc
+                  {{else if (if_eq head.sortDirectionPageOpenColumn 'desc') }}
+                    icon_type_sort-desc 
+                  {{else}}
+                    icon_type_sort-default
+                  {{/if}}">
+                  </i>
+                </button>
+              </div>
+            </div>
+           
+          </th>
+          {{/if}}
+          {{/with}}
+
+        </tr>
+      </thead>
+      <tbody id='tableBody' class='table__body'>
+        {{#if (if_eq rows.length 0)}}
+        <!-- Пока не знаю, как точно colspan определить -->
+        <tr class="table__body-empty">
+          <td colspan="10">
+            Пользователи не нашлись
+          </td>
+        </tr>
+        {{/if}}
+
+        {{#each rows as |rows|}}
+        <tr class="table__body-row">
+          <td class='table-cell'>
+            <div class="table-cell__content">
+              <a href={{rows.friend_vk_page_link}} target="_blank" class="table-cell__vk-page-link" title="перейти на страницу vk">
+                <i class="icon icon_size_m icon_type_vk-logo">
+                </i>
+              </a>
+              {{rows.first_name}}
+            </div>
+
+          </td>
+          <td class='table-cell'>
+            {{rows.last_name}}
+          </td>
+
+          {{#if ../head.hasSexColumn}}
+          <td class='table-cell'>
+            {{rows.sex_text}}
+          </td>
+          {{/if}}
+
+          {{#if ../head.hasOpenPageColumn}}
+          <td class='table-cell'>
+            {{rows.is_open_text}}
+          </td>
+          {{/if}}
+
+        </tr>
+        {{/each}}
+
+
+      </tbody>
+      <!-- 
+    Этот скрипт не срабатывает при вставке частичного представления в html...
+    <script>
     document.querySelectorAll('thead [data-popover-id]').forEach((triggerElement) => {
       new Popover({
         triggerElement
       })
     })
 
-  </script>
-</table>
+  </script>-->
+
+    </table>
+  </div>
+
+
+
+
+  <div class="pagination {{#if pagination}}{{else}}pagination_hidden{{/if}}" >
+    <input type="hidden" value="{{pagination.currentPage}}" id="currentPage">
+    {{#with pagination}}
+    {{#if paginationButtons.needShowButtonPrev}}
+    <button class="pagination__button {{#if (if_eq 1 ../pagination.currentPage)}} pagination__button_disabled{{/if}}" data-is-prev>
+      &lt;
+    </button>
+    {{/if}}
+
+    {{#each paginationButtons.buttons}}
+    {{#if this}}
+    <button
+      class="pagination__button {{#if (if_eq this ../../pagination.currentPage)}} pagination__button_active {{/if}}">
+      {{this}}
+    </button>
+    {{else}}
+    ...
+    {{/if}}
+
+
+    {{/each}}
+
+    {{#if paginationButtons.needShowButtonNext}}
+    <button class="pagination__button {{#if (if_eq ../pagination.totalPages ../pagination.currentPage)}} pagination__button_disabled{{/if}}" data-is-next >
+      &gt;
+    </button>
+    {{/if}}
+    {{/with}}
+  </div>
+
+  
+</div>

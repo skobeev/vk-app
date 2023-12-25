@@ -4,6 +4,9 @@
 @import './filter-panel__title.scss';
 @import './filter-panel__footer.scss';
 @import './filter-panel__content.scss';
+/*нельзя импортировать сюда css...*/
+@import './filter-panel__form.scss';
+@import './filter-panel__btn-clear-storage.scss';
 
 .filter-panel {
   padding: 10px;
@@ -12,12 +15,12 @@
   border-right: 2px solid var(--base-color);
   transition: width 250ms;
   width: 200px;
+}
 
-  &_hidden {
-    width: 60px;
+.filter-panel_hidden {
+  width: 60px;
+}
 
-    .filter-panel__content {
-      visibility: hidden;
-    }
-  }
+.filter-panel_hidden .filter-panel__content {
+  visibility: hidden;
 }

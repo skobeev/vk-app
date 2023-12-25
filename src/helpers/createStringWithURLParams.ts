@@ -1,4 +1,4 @@
-interface QueryParamModel {
+export interface QueryParamModel {
   name: string;
   value: string;
 }
@@ -12,5 +12,5 @@ export const createStringWithQueryParams = (params: QueryParamModel[]) => {
     []
   );
 
-  return queryParamsArray.join('&');
+  return '?' + queryParamsArray.join('&');
 };

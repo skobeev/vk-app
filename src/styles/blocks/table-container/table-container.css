@@ -1,0 +1,8 @@
+@import './table-container__content.css';
+
+.table-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  height: 100%;
+}

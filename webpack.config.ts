@@ -5,6 +5,10 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 const SCRIPT_NAMES = {
   Checkbox: 'checkbox',
   Popover: 'popover',
+  FilterPanel: 'filter-panel',
+  InitPage: 'init-page',
+  Notification: 'notification',
+  Table: 'table',
 };
 
 const config: webpack.Configuration = {
@@ -12,9 +16,12 @@ const config: webpack.Configuration = {
   entry: {
     server: './server.ts',
     style: './src/style.scss', // не собирает файлы css в dist без этого
-    script: './src/script.ts', // сделал, чтобы не было ошибки, потом что у файлов js, полученных через tsc, проблема с модулями script.js:12 Uncaught ReferenceError: exports is not defined
     [SCRIPT_NAMES.Checkbox]: './src/scripts/checkbox.ts',
     [SCRIPT_NAMES.Popover]: './src/scripts/popover.ts',
+    [SCRIPT_NAMES.FilterPanel]: './src/scripts/filter-panel.ts',
+    [SCRIPT_NAMES.InitPage]: './src/scripts/init-page.ts',
+    [SCRIPT_NAMES.Notification]: './src/scripts/notification.ts',
+    [SCRIPT_NAMES.Table]: './src/scripts/table.ts',
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
