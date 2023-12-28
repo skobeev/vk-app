@@ -1,0 +1,8 @@
+.input {
+  border: 1px solid var(--base-color);
+  padding: 6px 10px;
+}
+
+.input_size_l {
+  width: 250px;
+}

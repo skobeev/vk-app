@@ -4,7 +4,7 @@
   <meta charset='UTF-8' />
   <meta name='viewport' content='width=device-width, initial-scale=1.0' />
   <link href="style.css" rel="stylesheet" type="text/css">
-  <title>{{{title}}}</title>
+  <title>Список друзей</title>
   <script src="./src/scripts/popover.js"></script>
 </head>
 
@@ -19,8 +19,12 @@
     </div>
   </div>
   {{> loader}}
+  {{> notification}}
   <script src='./scripts/checkbox.js'></script>
-  <script src="script.bundle.js"></script>
+  <script src='./scripts/filter-panel.js'></script>
+  <script src="./scripts/notification.js"></script>
+  <script src="./scripts/table.js"></script>
+  <script src="./scripts/init-page.js"></script>
 </body>
 
 </html>

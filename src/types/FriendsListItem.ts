@@ -8,4 +8,5 @@ export interface FriendsListItem {
   last_name: string;
   sex: Sex;
   track_code: string;
+  domain: string;
 }
